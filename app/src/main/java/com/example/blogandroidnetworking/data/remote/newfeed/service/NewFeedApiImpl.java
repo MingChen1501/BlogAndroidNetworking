@@ -6,7 +6,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.blogandroidnetworking.model.Author;
 import com.example.blogandroidnetworking.model.Post;
 import com.example.blogandroidnetworking.utils.Server;
 import com.google.gson.Gson;
@@ -35,15 +34,6 @@ public class NewFeedApiImpl implements NewFeedsApi {
         requestQueue.add(stringRequest);
     }
 
-    @Override
-    public void getAuthorOfPost(long authorId, Response.Listener<Author> listener, Response.ErrorListener errorListener) {
-        String url = Server.BASE_URL + "users/" + authorId;
-        StringRequest stringRequest = new StringRequest(url, response -> {
-            Author author = new Gson().fromJson(response, Author.class);
-            listener.onResponse(author);
-        }, errorListener);
-        requestQueue.add(stringRequest);
-    }
 
     private List<Post> parseJsonToPost(String response) {
         List<Post> posts = new ArrayList<>();

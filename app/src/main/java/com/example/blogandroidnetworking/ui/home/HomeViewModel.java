@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.blogandroidnetworking.data.remote.newfeed.FeedRepository;
-import com.example.blogandroidnetworking.model.Author;
 import com.example.blogandroidnetworking.model.Post;
 
 import java.util.List;
@@ -19,11 +18,9 @@ public class HomeViewModel extends ViewModel {
     private String errorMessage = "";
 
     private final MutableLiveData<List<Post>> postsLiveData;
-    private final MutableLiveData<Author> authorLiveData;
 
     public HomeViewModel() {
         postsLiveData = new MutableLiveData<>();
-        authorLiveData = new MutableLiveData<>();
     }
     public LiveData<List<Post>> getPostsLiveData() {
         return postsLiveData;

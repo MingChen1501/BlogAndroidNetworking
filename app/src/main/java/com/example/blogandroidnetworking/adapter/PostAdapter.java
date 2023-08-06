@@ -1,6 +1,5 @@
-package com.example.blogandroidnetworking.data.remote.newfeed.adapter;
+package com.example.blogandroidnetworking.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.blogandroidnetworking.R;
-import com.example.blogandroidnetworking.model.Author;
 import com.example.blogandroidnetworking.model.Post;
 
 import java.util.List;
@@ -20,11 +18,9 @@ import java.util.List;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder>{
     private static final String TAG = "PostAdapter";
     private final List<Post> posts;
-    private final List<Author> authors;
 
     public PostAdapter(List<Post> posts) {
         this.posts = posts;
-        authors = null;
     }
     public void setPosts(List<Post> newPosts) {
         posts.clear();
