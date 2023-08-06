@@ -50,7 +50,8 @@ public class NewFeedApiImpl implements NewFeedsApi {
             String[] likedBy = new String[likedByArray.size()];
             int j = 0;
             for (JsonElement element1 : likedByArray) {
-                likedBy[j++] = element.getAsJsonObject().get("userId").getAsString();
+                likedBy[j++] = element1.getAsJsonObject().get("userId").getAsString();
+                Log.d(TAG, "parseJsonToPost: " + element1.getAsJsonObject().get("userId").getAsString());
             }
             post.setLikedBy(likedBy);
 

@@ -2,12 +2,7 @@ package com.example.blogandroidnetworking;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-import com.example.blogandroidnetworking.data.remote.newfeed.service.NewFeedApiImpl;
-import com.example.blogandroidnetworking.data.remote.newfeed.service.NewFeedsApi;
 import com.example.blogandroidnetworking.model.dto.UserDto;
 import com.example.blogandroidnetworking.ui.viewmodel.UserLoggedViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -38,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
             String id = intent.getStringExtra("id");
             String type = intent.getStringExtra("type");
             String avatar = intent.getStringExtra("avatar");
-            Log.d(TAG, "onCreate: " + username + " " + id + " " + type + " " + avatar);
             UserDto userDto = new UserDto();
             userDto.setAvatar(avatar);
             userDto.setId(id);
@@ -46,16 +40,16 @@ public class MainActivity extends AppCompatActivity {
             userDto.setName(username);
             userLoggedViewModel.setData(userDto);
         }
-        
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+
+
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home,
-                R.id.navigation_dashboard,
+                R.id.navigation_new_post,
                 R.id.navigation_notifications)
                 .build();
-
         NavController navController = Navigation.findNavController(this,
                 R.id.nav_host_fragment_activity_main);
 
@@ -65,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(binding.navView,
                 navController);
-
     }
 
 }

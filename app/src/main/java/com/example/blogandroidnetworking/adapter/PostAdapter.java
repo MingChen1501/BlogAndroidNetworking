@@ -65,21 +65,29 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         }
 
         holder.countLike.setText(String.valueOf(post.getLikedBy().length));
+        final boolean[] isLiked = {false};
         for (String likedBy : post.getLikedBy()) {
             if (likedBy.equals(userLogged.getId())) {
-                holder.btnLike.setColorFilter(1);
+                isLiked[0] = true;
                 break;
             }
+        }
+        if (isLiked[0]) {
+            holder.btnLike.setColorFilter(1);
+        } else {
+            holder.btnLike.setColorFilter(null);
         }
         holder.btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (holder.btnLike.getColorFilter() != null) {
+                if (isLiked[0]) {
                     holder.btnLike.setColorFilter(null);
-                    holder.countLike.setText(String.valueOf(post.getLikedBy().length - 1));
+                    holder.countLike.setText(String.valueOf(post.getLikedBy().length));
+                    isLiked[0] = false;
                 } else {
                     holder.btnLike.setColorFilter(1);
-                    holder.countLike.setText(String.valueOf(post.getLikedBy().length + 1));
+                    holder.countLike.setText(String.valueOf(post.getLikedBy().length));
+                    isLiked[0] = true;
                 }
             }
         });

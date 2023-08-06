@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.blogandroidnetworking.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_new_post"
+        android:name="com.example.blogandroidnetworking.ui.dashboard.NewPostFragment"
+        android:label="@string/title_new_post"
+        tools:layout="@layout/fragment_new_post" />
 
     <fragment
         android:id="@+id/navigation_notifications"
