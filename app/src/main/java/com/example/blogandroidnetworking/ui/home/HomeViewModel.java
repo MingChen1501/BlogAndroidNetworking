@@ -1,19 +1,45 @@
 package com.example.blogandroidnetworking.ui.home;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.example.blogandroidnetworking.data.remote.newfeed.FeedRepository;
+import com.example.blogandroidnetworking.model.Post;
 
-    private final MutableLiveData<String> mText;
+import java.util.List;
+
+public class HomeViewModel extends ViewModel {
+    private final String TAG = "HomeViewModel";
+    private FeedRepository feedRepository;
+
+    private final MutableLiveData<List<Post>> postsLiveData;
 
     public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        postsLiveData = new MutableLiveData<>();
+    }
+    public LiveData<List<Post>> getPostsLiveData() {
+        return postsLiveData;
+    }
+    public void fetchPosts() {
+        feedRepository.getPosts(new Response.Listener<List<Post>>() {
+            @Override
+            public void onResponse(List<Post> response) {
+                postsLiveData.setValue(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public void setFeedRepository(FeedRepository feedRepository) {
+        this.feedRepository = feedRepository;
     }
 }

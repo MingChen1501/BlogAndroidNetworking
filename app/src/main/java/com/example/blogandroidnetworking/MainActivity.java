@@ -1,7 +1,12 @@
 package com.example.blogandroidnetworking;
 
 import android.os.Bundle;
+import android.util.Log;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+import com.example.blogandroidnetworking.data.remote.newfeed.service.NewFeedApiImpl;
+import com.example.blogandroidnetworking.data.remote.newfeed.service.NewFeedsApi;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,16 +18,24 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.blogandroidnetworking.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+    String TAG = "MainActivity";
 
     private ActivityMainBinding binding;
+    private NewFeedsApi newFeedsApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Log.d(TAG, "onCreate: Main");
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        newFeedsApi = new NewFeedApiImpl(this);
+        newFeedsApi.getNewFeeds(response -> {
+            Log.d(TAG, "onCreate: " + response.toString());
+        }, error -> {
+            Log.d(TAG, "onCreate: " + error.toString());
+        });
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
