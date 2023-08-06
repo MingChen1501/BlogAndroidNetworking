@@ -67,6 +67,7 @@
         android:layout_height="wrap_content"
         android:scaleType="centerInside"
         android:adjustViewBounds="true"
+        android:layout_marginBottom="5dp"
         android:src="@color/cardview_light_background"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,32 +76,52 @@
 
         android:background="@drawable/round_backgournd_post">
         <ImageButton
-            android:id="@+id/likeButton"
+            android:id="@+id/btn_like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:background="@null"
             android:layout_margin="5dp"
             android:src="@drawable/baseline_star_rate_24"/>
-
-        <ImageButton
-            android:id="@+id/commentButton"
+        <TextView
+            android:id="@+id/tv_like_count"
+            android:layout_weight="9"
+            android:layout_margin="7dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:text="0"/>
+        <ImageButton
+            android:id="@+id/btn_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
             android:background="@null"
             android:layout_margin="5dp"
             android:src="@drawable/baseline_comment_24"
             />
 
-        <ImageButton
-            android:id="@+id/shareButton"
+        <TextView
+            android:id="@+id/tv_comment_count"
+            android:layout_weight="9"
+            android:layout_margin="7dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:text="0"/>
+        <ImageButton
+            android:id="@+id/btn_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
             android:background="@null"
             android:layout_margin="5dp"
             android:src="@drawable/baseline_share_24" />
+        <TextView
+            android:id="@+id/tv_share_count"
+            android:layout_margin="7dp"
+            android:layout_weight="9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"/>
     </LinearLayout>
 
 </LinearLayout>

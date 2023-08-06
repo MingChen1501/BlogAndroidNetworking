@@ -15,6 +15,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.blogandroidnetworking.MainActivity;
 import com.example.blogandroidnetworking.R;
+import com.example.blogandroidnetworking.utils.ApiUrl;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
@@ -51,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void handleLogin() {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://172.188.32.218/users", response -> {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, ApiUrl.BASE_URL+"users", response -> {
             JsonArray jsonArray = new Gson().fromJson(response, JsonArray.class);
             for (int i = 0; i < jsonArray.size(); i++) {
                 String username = jsonArray.get(i).getAsJsonObject().get("username").getAsString();
@@ -66,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                     String type = jsonArray.get(i).getAsJsonObject().get("type").getAsString();
                     Intent intent = new Intent(this, MainActivity.class);
                     intent.putExtra("id", id);
-                    intent.putExtra("name", name);
+                    intent.putExtra("username", name);
                     intent.putExtra("avatar", avatar);
                     intent.putExtra("type", type);
                     Toast.makeText(this, "Login success", Toast.LENGTH_SHORT).show();

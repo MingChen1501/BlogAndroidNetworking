@@ -17,7 +17,9 @@ import com.example.blogandroidnetworking.adapter.PostAdapter;
 import com.example.blogandroidnetworking.data.remote.newfeed.service.NewFeedApiImpl;
 import com.example.blogandroidnetworking.data.remote.newfeed.service.NewFeedsApi;
 import com.example.blogandroidnetworking.databinding.FragmentHomeBinding;
-import com.example.blogandroidnetworking.model.Post;
+import com.example.blogandroidnetworking.model.dto.PostDto;
+import com.example.blogandroidnetworking.model.dto.UserDto;
+import com.example.blogandroidnetworking.ui.viewmodel.UserLoggedViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
-
+    private UserLoggedViewModel userLoggedViewModel;
     private NewFeedsApi newFeedsApi;
     private FeedRepository feedRepository;
     HomeViewModel HomeViewModel;
@@ -40,7 +42,7 @@ public class HomeFragment extends Fragment {
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
-
+        userLoggedViewModel = new ViewModelProvider(requireActivity()).get(UserLoggedViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -49,15 +51,21 @@ public class HomeFragment extends Fragment {
         homeViewModel.setFeedRepository(feedRepository);
 
         recyclerView = binding.recyclerView;
-        List<Post> posts = new ArrayList<>();
+        List<PostDto> posts = new ArrayList<>();
         postAdapter = new PostAdapter(posts);
         recyclerView.setAdapter(postAdapter);
         recyclerView.setLayoutManager(new androidx.recyclerview.widget.LinearLayoutManager(requireContext()));
-        homeViewModel.getPostsLiveData().observe(getViewLifecycleOwner(), new Observer<List<Post>>() {
+        homeViewModel.getPostsLiveData().observe(getViewLifecycleOwner(), new Observer<List<PostDto>>() {
             @Override
-            public void onChanged(List<Post> posts) {
+            public void onChanged(List<PostDto> posts) {
                 postAdapter.setPosts(posts);
                 Log.d(TAG, "onChanged: ");
+            }
+        });
+        userLoggedViewModel.getData().observe(getViewLifecycleOwner(), new Observer<UserDto>() {
+            @Override
+            public void onChanged(UserDto userDto) {
+                postAdapter.setUserLogged(userDto);
             }
         });
         homeViewModel.fetchPosts();

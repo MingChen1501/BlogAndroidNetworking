@@ -1,5 +1,6 @@
 package com.example.blogandroidnetworking;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -7,9 +8,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.blogandroidnetworking.data.remote.newfeed.service.NewFeedApiImpl;
 import com.example.blogandroidnetworking.data.remote.newfeed.service.NewFeedsApi;
+import com.example.blogandroidnetworking.model.dto.UserDto;
+import com.example.blogandroidnetworking.ui.viewmodel.UserLoggedViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,23 +23,30 @@ import com.example.blogandroidnetworking.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     String TAG = "MainActivity";
-
+    private UserLoggedViewModel userLoggedViewModel;
     private ActivityMainBinding binding;
-    private NewFeedsApi newFeedsApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: Main");
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        newFeedsApi = new NewFeedApiImpl(this);
-        newFeedsApi.getNewPosts(response -> {
-            Log.d(TAG, "onCreate: " + response.toString());
-        }, error -> {
-            Log.d(TAG, "onCreate: " + error.toString());
-        });
+        userLoggedViewModel = new ViewModelProvider(this).get(UserLoggedViewModel.class);
+        Intent intent = getIntent();
+        if (intent != null) {
+            String username = intent.getStringExtra("username");
+            String id = intent.getStringExtra("id");
+            String type = intent.getStringExtra("type");
+            String avatar = intent.getStringExtra("avatar");
+            Log.d(TAG, "onCreate: " + username + " " + id + " " + type + " " + avatar);
+            UserDto userDto = new UserDto();
+            userDto.setAvatar(avatar);
+            userDto.setId(id);
+            userDto.setType(type);
+            userDto.setName(username);
+            userLoggedViewModel.setData(userDto);
+        }
+        
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -54,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(binding.navView,
                 navController);
+
     }
 
 }

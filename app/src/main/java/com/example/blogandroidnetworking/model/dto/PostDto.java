@@ -1,11 +1,9 @@
-package com.example.blogandroidnetworking.model;
+package com.example.blogandroidnetworking.model.dto;
 
 import java.util.Arrays;
 
-import lombok.Builder;
 
-
-public class Post {
+public class PostDto {
     private long id;
 
     public long getAuthorId() {
@@ -23,6 +21,19 @@ public class Post {
     private String content;
     private String[] imageUrl = new String[0];
     private String publishedAt;
+    private String[] likedBy = new String[0];
+
+    public void setImageUrl(String[] imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String[] getLikedBy() {
+        return likedBy;
+    }
+
+    public void setLikedBy(String[] likedBy) {
+        this.likedBy = likedBy;
+    }
 
     public String getAuthorName() {
         return authorName;
@@ -40,11 +51,11 @@ public class Post {
         this.authorAvatar = authorAvatar;
     }
 
-    public Post() {
+    public PostDto() {
     }
 
-    public Post(long id,long authorId , String authorName, String title,
-                String content, String[] imageUrl, String publishedAt) {
+    public PostDto(long id, long authorId , String authorName, String title,
+                   String content, String[] imageUrl, String publishedAt, String[] likedBy) {
         this.id = id;
         this.authorId = authorId;
         this.authorName = authorName;
@@ -52,6 +63,7 @@ public class Post {
         this.content = content;
         this.imageUrl = imageUrl;
         this.publishedAt = publishedAt;
+        this.likedBy = likedBy;
     }
 
     public long getId() {
@@ -97,7 +109,7 @@ public class Post {
 
     @Override
     public String toString() {
-        return "Post{" +
+        return "PostDto{" +
                 "id=" + id +
                 ", authorId=" + authorId +
                 ", authorName='" + authorName + '\'' +
