@@ -19,7 +19,10 @@ public class HomeViewModel extends ViewModel {
 
     private final MutableLiveData<List<PostDto>> postsLiveData;
 
+    private final MutableLiveData<String> postSelectedId;
+
     public HomeViewModel() {
+        postSelectedId = new MutableLiveData<>();
         postsLiveData = new MutableLiveData<>();
     }
     public LiveData<List<PostDto>> getPostsLiveData() {
@@ -41,5 +44,11 @@ public class HomeViewModel extends ViewModel {
 
     public void setFeedRepository(FeedRepository feedRepository) {
         this.feedRepository = feedRepository;
+    }
+    public void setPostSelectedId(String id) {
+        postSelectedId.setValue(id);
+    }
+    public LiveData<String> getPostSelectedId() {
+        return postSelectedId;
     }
 }

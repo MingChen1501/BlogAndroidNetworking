@@ -27,7 +27,13 @@ public class PostDetailFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_post_detail, container, false);
+        mViewModel = new ViewModelProvider(requireActivity()).get(PostDetailViewModel.class);
+        binding = FragmentNewPostBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+        mViewModel.getPostSelectedId().observe(getViewLifecycleOwner(), s -> {
+            binding.textDashboard.setText(s);
+        });
+        return root;
     }
 
 

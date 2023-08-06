@@ -2,6 +2,7 @@ package com.example.blogandroidnetworking;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.blogandroidnetworking.model.dto.UserDto;
 import com.example.blogandroidnetworking.ui.viewmodel.UserLoggedViewModel;
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(binding.navView,
                 navController);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().hide();
     }
 
 }

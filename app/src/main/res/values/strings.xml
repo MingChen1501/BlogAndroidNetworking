@@ -8,4 +8,5 @@
     <string name="login">Login</string>
     <string name="signup">signup</string>
     <string name="name_project">Blog Networking</string>
+    <string name="post_detail">postdetail</string>
 </resources>

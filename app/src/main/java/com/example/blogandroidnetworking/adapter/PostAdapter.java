@@ -18,10 +18,13 @@ import com.example.blogandroidnetworking.model.dto.UserDto;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder>{
+    private OnButtonClickListener onButtonClickListener;
     private static final String TAG = "PostAdapter";
     private final List<PostDto> posts;
     private final UserDto userLogged;
-
+    public void setOnButtonClickListener(OnButtonClickListener onButtonClickListener) {
+        this.onButtonClickListener = onButtonClickListener;
+    }
     public PostAdapter(List<PostDto> posts) {
         this.posts = posts;
         userLogged = new UserDto("", "", "", "");
@@ -91,6 +94,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 }
             }
         });
+        holder.btnComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onButtonClickListener != null) {
+                    onButtonClickListener.onButtonClick(String.valueOf(post.getId()));
+                }
+            }
+        });
     }
 
     @Override
@@ -98,7 +109,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         return posts.size();
     }
 
-    public static class PostViewHolder extends RecyclerView.ViewHolder {
+    public class PostViewHolder extends RecyclerView.ViewHolder {
         ImageButton btnLike, btnComment, btnShare;
         ImageView authorAvatar;
         TextView countLike, countComment, countShare;
@@ -121,6 +132,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             countLike = itemView.findViewById(R.id.tv_like_count);
             countComment = itemView.findViewById(R.id.tv_comment_count);
             countShare = itemView.findViewById(R.id.tv_share_count);
+
         }
     }
 }
