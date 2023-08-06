@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         newFeedsApi = new NewFeedApiImpl(this);
-        newFeedsApi.getNewFeeds(response -> {
+        newFeedsApi.getNewPosts(response -> {
             Log.d(TAG, "onCreate: " + response.toString());
         }, error -> {
             Log.d(TAG, "onCreate: " + error.toString());

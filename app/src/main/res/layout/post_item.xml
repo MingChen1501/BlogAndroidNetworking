@@ -5,15 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp"
-    android:background="@color/design_default_color_secondary">
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/round_backgournd_post_container">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/round_backgournd_post">
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:id="@+id/iv_author_avatar"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:src="@color/black"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,19 +39,68 @@
                 android:text="5 minutes ago"/>
         </LinearLayout>
     </LinearLayout>
-    <TextView
-        android:id="@+id/tv_post_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textSize="20dp"
-        android:text="PostTitle" />
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_post_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="20dp"
+            android:text="PostTitle" />
 
-    <TextView
-        android:id="@+id/tv_post_content"
+        <TextView
+            android:id="@+id/tv_post_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="16dp"
+            android:text="PostContent" />
+
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_post_image"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:src="@color/cardview_light_background"/>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:textSize="16dp"
-        android:text="PostContent" />
+        android:orientation="horizontal"
+
+        android:background="@drawable/round_backgournd_post">
+        <ImageButton
+            android:id="@+id/likeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_margin="5dp"
+            android:src="@drawable/baseline_star_rate_24"/>
+
+        <ImageButton
+            android:id="@+id/commentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_margin="5dp"
+            android:src="@drawable/baseline_comment_24"
+            />
+
+        <ImageButton
+            android:id="@+id/shareButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_margin="5dp"
+            android:src="@drawable/baseline_share_24" />
+    </LinearLayout>
+
 </LinearLayout>

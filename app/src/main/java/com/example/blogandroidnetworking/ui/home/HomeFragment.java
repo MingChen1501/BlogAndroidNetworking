@@ -33,20 +33,22 @@ public class HomeFragment extends Fragment {
 
     private NewFeedsApi newFeedsApi;
     private FeedRepository feedRepository;
+    HomeViewModel HomeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        newFeedsApi = new NewFeedApiImpl(requireContext());
-        feedRepository = new FeedRepository(newFeedsApi);
 
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
-        homeViewModel.setFeedRepository(feedRepository);
 
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        newFeedsApi = new NewFeedApiImpl(requireContext());
+        feedRepository = new FeedRepository(newFeedsApi);
+        homeViewModel.setFeedRepository(feedRepository);
 
         recyclerView = binding.recyclerView;
         List<Post> posts = new ArrayList<>();
@@ -63,6 +65,7 @@ public class HomeFragment extends Fragment {
         homeViewModel.fetchPosts();
         return root;
     }
+
 
 
     @Override

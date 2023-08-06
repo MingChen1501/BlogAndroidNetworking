@@ -5,9 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/cardview_light_background"
     tools:context=".ui.home.HomeFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginHorizontal="10dp"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

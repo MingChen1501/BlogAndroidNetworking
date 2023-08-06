@@ -2,25 +2,52 @@ package com.example.blogandroidnetworking.model;
 
 import java.util.Arrays;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Builder;
+
 
 public class Post {
     private long id;
-    private Author author;
+
+    public long getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(long authorId) {
+        this.authorId = authorId;
+    }
+
+    private long authorId;
+    private String authorName;
+    private String authorAvatar;
     private String title;
     private String content;
-    private String[] imageUrl;
+    private String[] imageUrl = new String[0];
     private String publishedAt;
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getAuthorAvatar() {
+        return authorAvatar;
+    }
+
+    public void setAuthorAvatar(String authorAvatar) {
+        this.authorAvatar = authorAvatar;
+    }
 
     public Post() {
     }
 
-    public Post(long id, Author author, String title, String content, String[] imageUrl, String publishedAt) {
+    public Post(long id,long authorId , String authorName, String title,
+                String content, String[] imageUrl, String publishedAt) {
         this.id = id;
-        this.author = author;
+        this.authorId = authorId;
+        this.authorName = authorName;
         this.title = title;
         this.content = content;
         this.imageUrl = imageUrl;
@@ -35,13 +62,6 @@ public class Post {
         this.id = id;
     }
 
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
 
     public String getTitle() {
         return title;
@@ -63,7 +83,7 @@ public class Post {
         return imageUrl;
     }
 
-    public void setImageUrl(String[] imageUrl) {
+    public void setImagesUrl(String[] imageUrl) {
         this.imageUrl = imageUrl;
     }
 
@@ -79,7 +99,9 @@ public class Post {
     public String toString() {
         return "Post{" +
                 "id=" + id +
-                ", author=" + author +
+                ", authorId=" + authorId +
+                ", authorName='" + authorName + '\'' +
+                ", authorAvatar='" + authorAvatar + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", imageUrl=" + Arrays.toString(imageUrl) +

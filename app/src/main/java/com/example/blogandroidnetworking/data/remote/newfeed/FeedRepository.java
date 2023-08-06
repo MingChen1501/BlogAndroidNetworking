@@ -2,12 +2,10 @@ package com.example.blogandroidnetworking.data.remote.newfeed;
 
 import com.android.volley.Response;
 import com.example.blogandroidnetworking.data.remote.newfeed.service.NewFeedsApi;
+import com.example.blogandroidnetworking.model.Author;
 import com.example.blogandroidnetworking.model.Post;
 
 import java.util.List;
-
-import lombok.Getter;
-import lombok.Setter;
 
 public class FeedRepository {
     private final NewFeedsApi newFeedsApi;
@@ -16,6 +14,9 @@ public class FeedRepository {
         this.newFeedsApi = newFeedsApi;
     }
     public void getPosts(Response.Listener<List<Post>> listener, Response.ErrorListener errorListener) {
-        newFeedsApi.getNewFeeds(listener, errorListener);
+        newFeedsApi.getNewPosts(listener, errorListener);
+    }
+    public void getAuthorOfPost(long authorId, Response.Listener<Author> listener, Response.ErrorListener errorListener) {
+        newFeedsApi.getAuthorOfPost(authorId, listener, errorListener);
     }
 }
