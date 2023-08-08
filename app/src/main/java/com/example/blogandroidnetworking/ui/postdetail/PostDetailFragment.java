@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -40,14 +41,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class PostDetailFragment extends Fragment implements OnButtonClickListener {
+    private static final String TAG = "PostDetailFragment";
     private BottomNavigationView bottomNavigationView;
-    private String TAG = "PostDetailFragment";
     private FragmentPostDetailBinding binding;
 
     private PostDetailViewModel mViewModel;
     private UserLoggedViewModel mUserLoggedViewModel;
     private NewFeedsApi newFeedsApi;
-    private RecyclerView recyclerView;
     private CommentAdapter commentAdapter;
     private ImageView ivAvatarAuthor;
     private TextView tvAuthorName;
@@ -60,11 +60,7 @@ public class PostDetailFragment extends Fragment implements OnButtonClickListene
     private TextView tvShareCount;
     private ImageButton btnLike, btnComment, btnShare;
     private EditText etComment;
-    private AppCompatImageButton btnSendComment;
-
-    public static PostDetailFragment newInstance() {
-        return new PostDetailFragment();
-    }
+    private Button btnSendComment;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -76,7 +72,7 @@ public class PostDetailFragment extends Fragment implements OnButtonClickListene
         bottomNavigationView = requireActivity().findViewById(R.id.nav_view);
         bottomNavigationView.setVisibility(View.GONE);
         newFeedsApi = new NewFeedApiImpl(requireContext());
-        recyclerView = binding.rvComments;
+        RecyclerView recyclerView = binding.rvComments;
         List<CommentDto> comments = new ArrayList<>();
         commentAdapter = new CommentAdapter(comments, Objects.requireNonNull(mUserLoggedViewModel.getData().getValue()).getId());
         commentAdapter.setOnButtonClickListener(this);
@@ -129,7 +125,7 @@ public class PostDetailFragment extends Fragment implements OnButtonClickListene
             if (comment.isEmpty()) {
                 Toast.makeText(requireContext(), "Vui lòng nhập bình luận", Toast.LENGTH_SHORT).show();
             } else {
-                newFeedsApi.createComment(mViewModel.getPostSelectedId().getValue(), comment, mUserLoggedViewModel.getData().getValue().getId(), res -> {
+                newFeedsApi.createComment(mViewModel.getPostSelectedId().getValue(), comment, Objects.requireNonNull(mUserLoggedViewModel.getData().getValue()).getId(), res -> {
                     if (res != null) {
                         Toast.makeText(requireContext(), "Bình luận thành công", Toast.LENGTH_SHORT).show();
                         etComment.setText("");

@@ -16,6 +16,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +51,7 @@ public class NewFeedApiImpl implements NewFeedsApi {
 
     @Override
     public void getCommendInPost(String id, Response.Listener<List<CommentDto>> listener, Response.ErrorListener errorListener) {
-        String url = ApiUrl.BASE_URL + "posts/" + id + "/comments?_expand=user";
+        String url = ApiUrl.BASE_URL + "posts/" + id + "/comments?_expand=user&_sort=published_at&_order=desc";
         StringRequest stringRequest = new StringRequest(url, response -> {
             List<CommentDto> comments = parseJsonToComment(response);
             listener.onResponse(comments);
@@ -72,6 +74,7 @@ public class NewFeedApiImpl implements NewFeedsApi {
                 jsonObject.addProperty("userId", uid);
                 jsonObject.addProperty("postId", pid);
                 jsonObject.addProperty("content", comment);
+                jsonObject.addProperty("published_at", String.valueOf(Instant.ofEpochMilli(System.currentTimeMillis())));
                 return jsonObject.toString().getBytes();
             }
 
@@ -122,6 +125,7 @@ public class NewFeedApiImpl implements NewFeedsApi {
             comment.setId(objectComment.get("id").getAsString());
             comment.setContent(objectComment.get("content").getAsString());
             JsonObject objectUser = objectComment.get("user").getAsJsonObject();
+            comment.setPublishedAt(objectComment.has("published_at") ? objectComment.get("published_at").getAsString() : "");
             comment.setAvatar_url(objectUser.get("avatar").getAsString());
             comment.setUsername(objectUser.get("username").getAsString());
             comment.setUserId(objectUser.get("id").getAsString());

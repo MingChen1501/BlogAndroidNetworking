@@ -64,7 +64,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         Glide.with(holder.itemView.getContext())
                 .load(comment.getAvatar_url())
                 .into(holder.authorAvatar);
-        Log.d(TAG, "onBindViewHolder: " + comment);
     }
 
     @Override

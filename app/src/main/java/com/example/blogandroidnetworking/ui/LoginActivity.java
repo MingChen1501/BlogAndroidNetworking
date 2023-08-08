@@ -47,8 +47,10 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
             handleLogin();
-        });
 
+        });
+        if (getSupportActionBar() != null)
+            getSupportActionBar().hide();
     }
 
     private void handleLogin() {

@@ -16,7 +16,9 @@
             android:layout_margin="10dp"
             android:id="@+id/iv_author_avatar"
             android:layout_width="65dp"
+            android:maxWidth="65dp"
             android:layout_height="65dp"
+            android:maxHeight="65dp"
             android:src="@color/black"/>
         <LinearLayout
             android:layout_width="match_parent"

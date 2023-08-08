@@ -1,156 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="5dp"
     tools:context=".ui.postdetail.PostDetailFragment"
-    tools:ignore="ScrollViewCount">
-    <LinearLayout
+    android:orientation="vertical">
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_weight="95">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/round_backgournd_post">
-            <ImageView
-                android:layout_margin="10dp"
-                android:id="@+id/iv_author_avatar"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:src="@color/black"/>
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_backgournd_post"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_author_avatar"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_margin="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_author_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="MingChen"
+                        android:textSize="25dp" />
+
+                    <TextView
+                        android:id="@+id/tv_published_at"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:padding="5dp"
+                        android:text="5 minutes ago"
+                        android:textSize="14dp" />
+                </LinearLayout>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <TextView
-                    android:id="@+id/tv_author_name"
+                    android:id="@+id/tv_post_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:textSize="25dp"
-                    android:text="MingChen" />
+                    android:text="PostTitle"
+                    android:textSize="20dp" />
+
                 <TextView
-                    android:id="@+id/tv_published_at"
+                    android:id="@+id/tv_post_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14dp"
                     android:padding="5dp"
-                    android:layout_marginLeft="15dp"
-                    android:text="5 minutes ago"/>
+                    android:text="PostContent"
+                    android:textSize="16dp" />
+
+
+                <ImageView
+                    android:id="@+id/iv_post_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@color/cardview_light_background" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_backgournd_post"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btn_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:src="@drawable/baseline_star_rate_24"
+                    android:contentDescription="TODO" />
+
+                <TextView
+                    android:id="@+id/tv_like_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="7dp"
+                    android:layout_weight="9"
+                    android:text="0" />
+
+                <ImageButton
+                    android:id="@+id/btn_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:src="@drawable/baseline_comment_24" />
+
+                <TextView
+                    android:id="@+id/tv_comment_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="7dp"
+                    android:layout_weight="9"
+                    android:text="0" />
+
+                <ImageButton
+                    android:id="@+id/btn_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="3"
+                    android:background="@null"
+                    android:src="@drawable/baseline_share_24" />
+
+                <TextView
+                    android:id="@+id/tv_share_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="7dp"
+                    android:layout_weight="9"
+                    android:text="0" />
+
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/comment_item" />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
+    </androidx.core.widget.NestedScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="5"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/et_comment"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="comment"
+            android:padding="10dp"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/tv_post_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:textSize="20dp"
-                android:text="PostTitle" />
+            android:layout_gravity="top"
+            android:layout_margin="5dp"
+            android:background="@drawable/baseline_comment_24"/>
+<!--        <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_gravity="bottom"-->
+<!--            android:layout_margin="2dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:orientation="horizontal">-->
 
-            <TextView
-                android:id="@+id/tv_post_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textSize="16dp"
-                android:text="PostContent" />
-            <ImageView
-                android:id="@+id/iv_post_image"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="centerInside"
-                android:adjustViewBounds="true"
-                android:layout_marginBottom="5dp"
-                android:src="@color/cardview_light_background"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/round_backgournd_post">
-            <ImageButton
-                android:id="@+id/btn_like"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:background="@null"
-                android:layout_margin="5dp"
-                android:src="@drawable/baseline_star_rate_24"/>
-            <TextView
-                android:id="@+id/tv_like_count"
-                android:layout_weight="9"
-                android:layout_margin="7dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"/>
-            <ImageButton
-                android:id="@+id/btn_comment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:background="@null"
-                android:layout_margin="5dp"
-                android:src="@drawable/baseline_comment_24"
-                />
+<!--            -->
+<!--        </androidx.appcompat.widget.LinearLayoutCompat>-->
 
-            <TextView
-                android:id="@+id/tv_comment_count"
-                android:layout_weight="9"
-                android:layout_margin="7dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"/>
-            <ImageButton
-                android:id="@+id/btn_share"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:background="@null"
-                android:layout_margin="5dp"
-                android:src="@drawable/baseline_share_24" />
-            <TextView
-                android:id="@+id/tv_share_count"
-                android:layout_margin="7dp"
-                android:layout_weight="9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"/>
-        </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_comments"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/comment_item"/>
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_gravity="bottom"
-            android:layout_weight="10">
-            <EditText
-                android:id="@+id/et_comment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="comment"
-                android:padding="10dp"
-                android:textSize="17sp"
-                android:layout_weight="1"/>
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btn_send"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:textAlignment="center"
-                tools:src="@drawable/baseline_comment_24" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
     </LinearLayout>
-</ScrollView>
+
+</LinearLayout>

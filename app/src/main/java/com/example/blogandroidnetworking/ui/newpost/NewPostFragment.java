@@ -1,4 +1,4 @@
-package com.example.blogandroidnetworking.ui.dashboard;
+package com.example.blogandroidnetworking.ui.newpost;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

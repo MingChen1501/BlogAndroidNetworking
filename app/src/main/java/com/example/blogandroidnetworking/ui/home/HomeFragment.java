@@ -9,11 +9,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +23,6 @@ import com.example.blogandroidnetworking.data.remote.newfeed.service.NewFeedsApi
 import com.example.blogandroidnetworking.databinding.FragmentHomeBinding;
 import com.example.blogandroidnetworking.model.dto.PostDto;
 import com.example.blogandroidnetworking.model.dto.UserDto;
-import com.example.blogandroidnetworking.ui.dashboard.NewPostFragment;
 import com.example.blogandroidnetworking.ui.postdetail.PostDetailViewModel;
 import com.example.blogandroidnetworking.ui.viewmodel.UserLoggedViewModel;
 
@@ -34,14 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment implements OnButtonClickListener {
-    String TAG = "HomeFragment";
+    public static final String TAG = "HomeFragment";
 
     private FragmentHomeBinding binding;
-    private RecyclerView recyclerView;
     private PostAdapter postAdapter;
-    private UserLoggedViewModel userLoggedViewModel;
-    private NewFeedsApi newFeedsApi;
-    private FeedRepository feedRepository;
     private HomeViewModel homeViewModel;
     private PostDetailViewModel postDetailViewModel;
 
@@ -52,15 +44,15 @@ public class HomeFragment extends Fragment implements OnButtonClickListener {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
-        userLoggedViewModel = new ViewModelProvider(requireActivity()).get(UserLoggedViewModel.class);
+        UserLoggedViewModel userLoggedViewModel = new ViewModelProvider(requireActivity()).get(UserLoggedViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         postDetailViewModel = new ViewModelProvider(requireActivity()).get(PostDetailViewModel.class);
-        newFeedsApi = new NewFeedApiImpl(requireContext());
-        feedRepository = new FeedRepository(newFeedsApi);
+        NewFeedsApi newFeedsApi = new NewFeedApiImpl(requireContext());
+        FeedRepository feedRepository = new FeedRepository(newFeedsApi);
         homeViewModel.setFeedRepository(feedRepository);
 
-        recyclerView = binding.recyclerView;
+        RecyclerView recyclerView = binding.recyclerView;
         List<PostDto> posts = new ArrayList<>();
         postAdapter = new PostAdapter(posts);
         postAdapter.setOnButtonClickListener(this);
@@ -80,6 +72,16 @@ public class HomeFragment extends Fragment implements OnButtonClickListener {
             }
         });
         homeViewModel.fetchPosts();
+        recyclerView.addOnScrollListener(new androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onScrollStateChanged(@NonNull androidx.recyclerview.widget.RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (!recyclerView.canScrollVertically(-1) && newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE) {
+                    homeViewModel.fetchPosts();
+                }
+            }
+        });
         return root;
     }
 
@@ -89,6 +91,9 @@ public class HomeFragment extends Fragment implements OnButtonClickListener {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        postDetailViewModel = null;
+        postAdapter = null;
+        homeViewModel = null;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.blogandroidnetworking.ui.dashboard;
+package com.example.blogandroidnetworking.ui.newpost;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

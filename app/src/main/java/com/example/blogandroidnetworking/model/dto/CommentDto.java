@@ -6,6 +6,8 @@ public class CommentDto {
     private String content;
     private String avatar_url;
     private String username;
+    private String publishedAt;
+
 
     public CommentDto(String id, String userId, String content, String avatar_url, String username, String publishedAt) {
         this.id = id;
@@ -15,8 +17,6 @@ public class CommentDto {
         this.username = username;
         this.publishedAt = publishedAt;
     }
-
-    private String publishedAt;
 
     public String getPublishedAt() {
         return publishedAt;
